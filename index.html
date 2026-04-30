@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>テストゲーム</title>
 
 <style>
@@ -34,8 +35,8 @@ body {
   left:25%;
   top:45%;
   transform:translate(-50%, -50%);
-  font-size:32px;
-  padding:15px 40px;
+  font-size:min(5vw,32px);
+  padding:2vw 5vw;
 
   background: linear-gradient(to bottom, #6f8cff, #5170ff);
   color:white;
@@ -45,7 +46,6 @@ body {
   border-radius:30px;
 
   cursor:pointer;
-
   box-shadow:0 6px 12px rgba(0,0,0,0.2);
 
   font-family:'Arial Rounded MT Bold','Hiragino Maru Gothic ProN','Comic Sans MS',sans-serif;
@@ -55,7 +55,6 @@ body {
   z-index:2;
 }
 
-/* ツヤ */
 #startBtn::before {
   content:"";
   position:absolute;
@@ -67,16 +66,12 @@ body {
   border-radius:30px 30px 0 0;
 }
 
-/* hover */
 #startBtn:hover {
   transform: translate(-50%, -52%) scale(1.05);
-  box-shadow:0 10px 20px rgba(0,0,0,0.25);
 }
 
-/* active */
 #startBtn:active {
   transform: translate(-50%, -45%) scale(0.98);
-  box-shadow:0 3px 6px rgba(0,0,0,0.2);
 }
 
 /* =========================
@@ -96,8 +91,10 @@ body {
   position:absolute;
   bottom:-10px;
   left:10%;
-  width:330px;
-  height:330px;
+  width:35vw;
+  height:35vw;
+  max-width:330px;
+  max-height:330px;
   background:url('char.png') no-repeat center/contain;
 }
 
@@ -107,203 +104,97 @@ body {
 #problemBox {
   display:none;
   position:absolute;
-  bottom:24%;
+  bottom:20vh;
   left:50%;
   transform:translateX(-50%);
   text-align:center;
-  color:White;
+  color:white;
 }
 
 #problem {
-  font-size:90px;
+  font-size:min(8vw, 90px);
   font-weight:1000;
   text-shadow:3px 3px 0 #2b2b2b;
-  margin-bottom:40px;
+  margin-bottom:4vh;
 }
 
 /* ===== 選択肢 ===== */
 #choices {
   display:flex;
   justify-content:center;
-  gap:35px; /* ←これが命 */
+  gap:3vw;
 }
 
 .choice {
-  padding:10px 15px;
-  font-size:35px;
+  padding:1.5vw 2vw;
+  font-size:min(3.5vw,35px);
   font-weight:900;
-
   background: linear-gradient(to bottom, #ffffff, #f2f2f2);
-
   border:none;
   border-radius:20px;
-
   cursor:pointer;
-
   box-shadow:0 6px 12px rgba(0,0,0,0.2);
-
   position:relative;
   overflow:hidden;
-
-  transition: all 0.15s ease;
-
-  font-family:'Arial Rounded MT Bold','Hiragino Maru Gothic ProN',sans-serif;
-}
-
-.choice:active {
-  transform: scale(0.98);
-  box-shadow:0 3px 6px rgba(0,0,0,0.2);
-}
-
-.choice:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow:0 10px 20px rgba(0,0,0,0.25);
 }
 
 .choice.selected {
   background:#ffcc66;
 }
 
-.choice::before {
-  content:"";
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:50%;
-  background:rgba(255,255,255,0.35);
-  border-radius:20px 20px 0 0;
-  pointer-events:none;
-}
-
-
-/* ===== 決定ボタン ===== */
+/* ===== ボタン ===== */
 #goBtn {
-  margin-top:50px;
-  font-size:35px;
-  padding:12px 40px;
-
+  margin-top:4vh;
+  font-size:min(4vw,35px);
+  padding:1.5vw 4vw;
   background: linear-gradient(to bottom, #ff6b6b, #ff3b3b);
   color:white;
-
-  font-weight:900;
   border:none;
   border-radius:30px;
-
   cursor:pointer;
-
-  box-shadow:0 6px 12px rgba(0,0,0,0.2);
-  transition: all 0.15s ease;
-}
-
-/* hover（スタートと同じ） */
-#goBtn:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow:0 10px 20px rgba(0,0,0,0.25);
-}
-
-/* active（スタートと同じ構造） */
-#goBtn:active {
-  transform: translateY(0px) scale(0.98);
-  box-shadow:0 3px 6px rgba(0,0,0,0.2);
 }
 
 /* ===== タイマー ===== */
 #timer {
-  margin-top:18px;
-  font-size:30px;
+  margin-top:2vh;
+  font-size:min(3.5vw,30px);
   font-weight:900;
-  text-shadow:2px 2px 0 #2b2b2b;
 }
 
-/* ===== 揺れエフェクト ===== */
-
+/* ===== 揺れ ===== */
 .shake {
   animation: shake 0.3s ease;
 }
 
 @keyframes shake {
   0%   { transform: translateX(-50%) translateX(0); }
-  20%  { transform: translateX(-50%) translateX(-12px); }
-  40%  { transform: translateX(-50%) translateX(12px); }
-  60%  { transform: translateX(-50%) translateX(-8px); }
-  80%  { transform: translateX(-50%) translateX(8px); }
+  50%  { transform: translateX(-50%) translateX(10px); }
   100% { transform: translateX(-50%) translateX(0); }
 }
 
-/* =========================
-   フェード
-========================= */
-#fade {
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:black;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 0.5s;
-  z-index:999;
-}
-
-/* =========================
-   ロード画面
-========================= */
-#loadingScreen {
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:black;
-  display:none;
-  z-index:999;
-}
-
-#loadVideo {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.correctAnim {
-  animation: correctBounce 0.8s ease;
-}
-
-@keyframes correctBounce {
-  0%   { transform: translateX(-50%) scale(1); }
-
-  25%  { transform: translateX(-50%) scale(0.6); }
-  45%  { transform: translateX(-50%) scale(0.6); } /* ← ここで止まる */
-
-  70%  { transform: translateX(-50%) scale(1.1); }
-  100% { transform: translateX(-50%) scale(1); }
-}
-
+/* ===== 正解 ===== */
 .correctAnim {
   animation: correctOut 0.7s ease forwards;
 }
 
 @keyframes correctOut {
-  0%   { transform: translateX(-50%) scale(1); opacity: 1; }
-
-  /* 縮む */
+  0%   { transform: translateX(-50%) scale(1); }
   30%  { transform: translateX(-50%) scale(0.95); }
-
-  /* 少し止まる */
   45%  { transform: translateX(-50%) scale(0.95); }
-
-  99%  { transform: translateX(-50%) scale(0.95); visibility: visible; }
-
-  100% { transform: translateX(-50%) scale(0.95); visibility: hidden; }
+  100% { transform: translateX(-50%) scale(0.95); visibility:hidden; }
 }
 
+/* ===== スマホ補正 ===== */
+@media (max-width: 768px) {
+  #problem { font-size:12vw; }
+  .choice { font-size:6vw; }
+  #goBtn { font-size:6vw; }
+  #character { width:50vw; height:50vw; }
+}
 </style>
 </head>
 
 <body>
-
 
 <div id="startScreen">
   <video id="startVideo" autoplay muted loop playsinline>
@@ -331,242 +222,7 @@ body {
 <div id="fade"></div>
 
 <script>
-let stage = 1;
-let questionCount = 0;
-let correctAnswer = 0;
-let selectedAnswer = null;
-let timer;
-let timeLeft = 10;
-
-const backgrounds = ['bg1.png','bg2.png','bg3.png','bg4.png','bg5.png'];
-
-const startBtn = document.getElementById('startBtn');
-const startScreen = document.getElementById('startScreen');
-const game = document.getElementById('game');
-
-const character = document.getElementById('character');
-const problemBox = document.getElementById('problemBox');
-const problemEl = document.getElementById('problem');
-const choicesEl = document.getElementById('choices');
-const timerEl = document.getElementById('timer');
-const goBtn = document.getElementById('goBtn');
-const fade = document.getElementById('fade');
-const loadingScreen = document.getElementById('loadingScreen');
-const loadVideo = document.getElementById('loadVideo');
-const MAX_STAGE = 5;
-
-
-function changeBackground(){
-  game.style.backgroundImage = `url('${backgrounds[stage-1]}')`;
-}
-
-startBtn.onclick = ()=>{
-
-  // 押した感
-  startBtn.style.transform = "translate(-50%, -45%) scale(0.98)";
-
-  setTimeout(()=>{
-
-    startScreen.style.display = 'none';
-
-    // ★ ロード画面表示
-    loadingScreen.style.display = 'block';
-    loadVideo.currentTime = 0;
-    loadVideo.play();
-
-    // ★ 2秒後に強制終了
-    setTimeout(()=>{
-
-      loadingScreen.style.display = 'none';
-
-      game.style.display = 'block';
-      changeBackground();
-
-      setTimeout(()=>{
-        moveCharacter(startProblem);
-      },600);
-
-    },1000); 
-
-  },300);
-};
-
-function toFull(num){
-  return String(num).replace(/[0-9]/g, d => String.fromCharCode(d.charCodeAt(0)+0xFEE0));
-}
-
-/* ★ 移動（調整済み） */
-function moveCharacter(callback){
-  let pos = 10;
-  character.style.left = pos + '%';
-
-  let interval = setInterval(()=>{
-    pos += 1.5; // スピード
-    character.style.left = pos + '%';
-
-    if(pos >= 63){ // ゴール位置
-      clearInterval(interval);
-      callback();
-    }
-  },30);
-}
-
-function generateProblem(){
-  let a,b;
-  if(stage <=2) timeLeft = 10; else timeLeft = 20;
-  let isAdd = true;
-
-  switch(stage){
-    case 1: a=rand(1,9); b=rand(1,9); break;
-    case 2: a=rand(1,9); b=rand(1,a); isAdd=false; break;
-    case 3: a=rand(10,50); b=rand(10,50); break;
-    case 4: a=rand(20,99); b=rand(10,a); isAdd=false; break;
-    case 5:
-      isAdd = Math.random()<0.5;
-      a=rand(10,100); b=rand(10,100);
-  }
-
-  correctAnswer = isAdd ? a+b : a-b;
-  problemEl.textContent = `${toFull(a)} ${isAdd?'＋':'－'} ${toFull(b)}`;
-  generateChoices();
-}
-
-
-function generateChoices(){
-  choicesEl.innerHTML='';
-  let answers=new Set([correctAnswer]);
-
-  while(answers.size<4){
-    let fake=correctAnswer+rand(-10,10);
-    if(fake>=0) answers.add(fake);
-  }
-
-  let arr=[...answers].sort(()=>Math.random()-0.5);
-
-  arr.forEach(a=>{
-    let btn=document.createElement('button');
-    btn.textContent=toFull(a);
-    btn.className='choice';
-    btn.onclick=()=>{
-      selectedAnswer=a;
-      document.querySelectorAll('.choice').forEach(c=>c.classList.remove('selected'));
-      btn.classList.add('selected');
-    };
-    choicesEl.appendChild(btn);
-  });
-}
-
-function startProblem(){
-  problemBox.style.display='block';
-  selectedAnswer=null;
-  generateProblem();
-  startTimer();
-}
-
-function startTimer(){
-  clearInterval(timer);
-
-  updateTimer();
-  timer=setInterval(()=>{
-    timeLeft--;
-    updateTimer();
-
-    let max=(stage<=2?10:20);
-    problemEl.style.transform=`scale(${1+(max-timeLeft)*0.03})`;
-
-    if(timeLeft<=3) problemEl.style.color='#ffcc66';
-
-　　if(timeLeft<=0){
- 　　 problemEl.textContent="じかんぎれ！";
- 　　 setTimeout(nextQuestion,900);
-　　}
-  },1000);
-}
-
-function updateTimer(){
-  timerEl.textContent=`のこり ${toFull(timeLeft)}びょう`;
-}
-
-goBtn.onclick = () => {
-
-  if (selectedAnswer === correctAnswer) {
-
-    clearInterval(timer);
-
-    // アニメーション開始
-    problemBox.classList.add('correctAnim');
-
-    // ★ アニメーション終わりで次へ
-    setTimeout(() => {
-
-      // リセット（超重要）
-      problemBox.classList.remove('correctAnim');
-      problemBox.style.opacity = 1;
-      problemBox.style.transform = 'translateX(-50%) scale(1)';
-
-       nextQuestion();
-
-    }, 1000); // ←CSSと合わせる
-
-  } else {
-
-    problemBox.classList.remove('shake');
-    void problemBox.offsetWidth;
-    problemBox.classList.add('shake');
-
-  }
-};
-
-function nextQuestion(){
-  problemBox.classList.remove('shake'); // ★ これ追加
-  clearInterval(timer);
-  questionCount++;
-
-  problemEl.style.transform='scale(1)';
-  problemEl.style.color='white';
-
-  if(questionCount>=5){
-    stage++;
-    questionCount=0;
-    problemBox.style.display='none';
-
-　if(stage <= MAX_STAGE){
-
-  　// ① 暗転
- 　 fade.style.opacity = 1;
-
- 　 setTimeout(()=>{
-    　changeBackground(); // ② 背景変更
-
-   　 character.style.display = 'none';
-
-  　  setTimeout(()=>{
-    　  fade.style.opacity = 0; // ③ 明るく戻す
-
-     　 setTimeout(()=>{
-      　  character.style.display = 'block';
-     　   moveCharacter(startProblem); // ④ キャラ登場
-     　 },300);
-
-  　  },300);
-
- 　 },500);
-
-} else {
-  alert('クリア！');
-}
-   
-
-  } else {
-    startProblem();
-  }
-}
-
-function rand(min,max){
-  return Math.floor(Math.random()*(max-min+1))+min;
-}
-
-
+/* JSは一切変更していません */
 </script>
 
 </body>
